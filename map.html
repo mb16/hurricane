@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script language="javascript" type="text/javascript" src="/hurricane/jquery-1.11.0.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/hurricane/jquery.csv-0.71.min.js"></script>
+    <script type="text/javascript" src="/hurricane/OpenLayers.js"></script>
+    <script type="text/javascript" src="/hurricane/heatmap.js"></script>
+    <script type="text/javascript" src="/hurricane/heatmap-openlayers.js"></script>
+    <script type="text/javascript" src="/hurricane/heatmap-openlayers-renderer.js"></script>
+    <script type="text/javascript" src="/hurricane/keys_polyfill.js"></script>
+
+    <link rel="stylesheet" href="/hurricane/theme/default/style.css"  type="text/css">
+</head>
+<body>
+<div id="bodyText">
+    <div style="margin: 0px;max-width: 1000px;">
+        <div style="border: 1px solid #999;border-top-left-radius:0.5em;border-top-right-radius:0.5em;background-color:#FFF2E2;">
+            <div style="padding: 4px;border-bottom: 1px solid #aaa;min-height: 2em;">
+                <div style="display: inline-block;  padding: 3px; margin: 3px; " id="stormList"></div>
+            </div>
+            <div style="padding: 4px;">
+
+                <select style="padding: 2px;" id="DataSet" onchange="MapLauncher();">
+                </select>
+                <div style="display: inline-block;  padding: 3px; margin: 3px; " id="modelKey">
+                </div>
+            </div>
+            <div style="padding: 4px 4px 8px 4px;min-height: 2em;">
+
+                <select style="padding: 2px;" id="IntensitySet" onchange="MapLauncher();">
+                    <option value="0">Model</option>
+                    <option value="1">Category</option>
+                    <option value="2">Wind Speed</option>
+                </select>
+                <div style="display: inline-block;  padding: 3px; margin: 3px; " id="intensityKey">
+                </div>
+
+                <div style="float:right;display: inline-block; border: 1px red solid; padding: 2px; border-radius: 0.4em; margin: 2px; cursor: pointer;" id="toggleSatellite">
+                    Satellite
+                </div>
+                <select id="Basin" style="float:right; padding: 2px; margin: 2px;" onchange="MapZoom();">
+                    <option value="0">Select Basin (World)</option>
+                    <option value="1">North Atlantic</option>
+                    <option value="2">South Atlantic</option>
+                    <option value="3">Northwest Pacific</option>
+                    <option value="4">Northeast Pacific</option>
+                    <option value="5">Central Pacific</option>
+                    <option value="6">North Indian</option>
+                    <option value="7">Southern Hemisphere</option>
+                </select>
+            </div>
+        </div>
+        <div id="Map" style="height: 500px; width: 1000px;position:relative;"></div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    function MapZoom(){
+        var basin = $("#Basin").val();
+        if ( basin === "1" )
+            positionMap(25, -55, 4);
+        else if ( basin === "2" )
+            positionMap(-20, -15, 4);
+        else if ( basin === "3" )
+            positionMap(30, 165, 4);
+        else if ( basin === "4" )
+            positionMap(30, -140, 4);
+        else if ( basin === "5" )
+            positionMap(0, 180, 4);
+        else if ( basin === "6" )
+            positionMap(0, 75, 4);
+        else if ( basin === "7" )
+            positionMap(-30, 150, 3);
+        else
+            positionMap(0, 0, 1);
+
+    }
+
+
+    function MapLauncher(){
+        loadData(focuslist);
+    }
+
+</script>
+<!-- nothing works if this isn't at the bottom... -->
+<script language="javascript" type="text/javascript" src="/hurricane/map.js"></script>
+
+</body>
+</html>
